@@ -217,7 +217,7 @@ pdfTable_add_header_above <- function(kable_input, header, bold, italic,
     header$header <- input_escape(header$header, align)
   }
 
-  align <- match.arg(align, c("c", "l", "r"))
+  align <- match.arg(align, c(paste0("|", c("c", "l", "r"), "|"), c("c", "l", "r"), paste0(c("|"), c("c", "l", "r")), paste0(c("c", "l", "r"), "|")))
 
   hline_type <- switch(table_info$booktabs + 1, "\\\\hline", "\\\\toprule")
   new_header_split <- pdfTable_new_header_generator(
@@ -267,7 +267,7 @@ pdfTable_new_header_generator <- function(header_df, booktabs = FALSE,
   font_size <- ez_rep(font_size, n)
   angle <- ez_rep(angle, n)
   if (!booktabs) {
-    align[1:(n - 1)] <- paste0(align[1:(n - 1)], "|")
+    align[1:(n - 1)] <- paste0(align[1:(n - 1)])
   }
   header <- header_df$header
   colspan <- header_df$colspan
